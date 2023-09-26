@@ -174,7 +174,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
     timestamp: Date.now(),
-    author: author.id,
+    author,  // Just use the passed in author directly
     optionOne: {
       votes: [],
       text: optionOneText,
@@ -220,28 +220,42 @@ export function _saveQuestion(question) {
 export function _saveQuestionAnswer({ authedUser, qid, answer }) {
   return new Promise((resolve, reject) => {
     if (!authedUser || !qid || !answer) {
-      reject("Please provide authedUser, qid, and answer");
+      return reject(new Error("Please provide authedUser, qid, and answer"));
+    }
+
+    const user = users[authedUser];
+    const question = questions[qid];
+
+    if (!user) {
+      return reject(new Error("Invalid authedUser"));
+    }
+
+    if (!question || !['optionOne', 'optionTwo'].includes(answer)) {
+      return reject(new Error("Invalid qid or answer"));
     }
 
     setTimeout(() => {
+      // Update user answers
       users = {
         ...users,
         [authedUser]: {
-          ...users[authedUser],
+          ...user,
           answers: {
-            ...users[authedUser].answers,
+            ...user.answers,
             [qid]: answer,
           },
         },
       };
 
+      // Update question votes
+      const updatedVotes = question[answer].votes.concat([authedUser]);
       questions = {
         ...questions,
         [qid]: {
-          ...questions[qid],
+          ...question,
           [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser]),
+            ...question[answer],
+            votes: updatedVotes,
           },
         },
       };
