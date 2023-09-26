@@ -20,7 +20,7 @@ describe("_saveQuestion function", () => {
     // Verifying that all expected fields are present in the returned data
     expect(savedQuestion).toHaveProperty("id");
     expect(savedQuestion).toHaveProperty("timestamp");
-    expect(savedQuestion).toHaveProperty("author", mockCorrectData.author);
+    expect(savedQuestion).toHaveProperty("author", mockCorrectData.author.id);
     expect(savedQuestion).toHaveProperty(
       "optionOne.text",
       mockCorrectData.optionOneText
@@ -34,7 +34,7 @@ describe("_saveQuestion function", () => {
   // Test for incorrectly formatted data
   it("should throw an error if incorrect data is passed", async () => {
     const mockIncorrectData = {
-      optionOneText: "Option 1 Text", // Missing optionTwoText and author
+      optionOneText: "Option 1 Text",
     };
 
     expect.assertions(1);

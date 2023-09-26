@@ -174,7 +174,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
     timestamp: Date.now(),
-    author,  // Just use the passed in author directly
+    author: author.id,    
     optionOne: {
       votes: [],
       text: optionOneText,
