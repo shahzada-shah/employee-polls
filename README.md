@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Employee Polls App facilitates an environment where employees can voice their opinions on various topics through polls. Users can cast their votes, see collective results, and even create new polls on topics they find relevant.
+The Employee Polls App facilitates an environment where employees can voice their opinions on various topics through polls. Users can cast their votes, see collective results, and even create new polls on topics.
 
 ## Tech Stack
 
