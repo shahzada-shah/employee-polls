@@ -1,38 +1,68 @@
-import React, {useEffect} from 'react';
-import {connect} from "react-redux";
-import { handleInitialData } from '../actions/shared';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { handleInitialData } from "../actions/shared";
 
-import {Route, Routes} from "react-router-dom";
-import PrivateRoute from './PrivateRoute';
+import { Route, Routes } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
-import Navbar from '../components/Navbar';
-import Dashboard from "../pages/dashboard/Dashboard"
-import Leaderboard from '../pages/leaderboard/Leaderboard';
-import CreatePoll from '../pages/createpoll/CreatePoll';
-import ViewPoll from '../pages/viewpoll/ViewPoll';
-import UserLogin from '../pages/userlogin/UserLogin';
+import Navbar from "../components/Navbar";
+import Dashboard from "../pages/dashboard/Dashboard";
+import Leaderboard from "../pages/leaderboard/Leaderboard";
+import CreatePoll from "../pages/createpoll/CreatePoll";
+import ViewPoll from "../pages/viewpoll/ViewPoll";
+import UserLogin from "../pages/userlogin/UserLogin";
 
-function NavRoute({dispatch, loggedIn}) {
-    useEffect(() => {
-        dispatch(handleInitialData());
-    });
+function NavRoute({ dispatch, loggedIn }) {
+  useEffect(() => {
+    dispatch(handleInitialData());
+  });
 
-    return (
-        <div>
-            {loggedIn && <Navbar/>}
-            <Routes>
-                <Route path="/login" exact element={<UserLogin/>}/>
-                <Route path="/" element={<PrivateRoute><Dashboard/></PrivateRoute>}/>                
-                <Route path="/leaderboard" exact element={<PrivateRoute><Leaderboard/></PrivateRoute>}/>
-                <Route path="/add" exact element={<PrivateRoute><CreatePoll/></PrivateRoute>}/>
-                <Route path="/questions/:id" element={<PrivateRoute><ViewPoll/></PrivateRoute>}/>
-            </Routes>
-        </div>
-    );
+  return (
+    <div>
+      {loggedIn && <Navbar />}
+      <Routes>
+        <Route path="/login" exact element={<UserLogin />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          exact
+          element={
+            <PrivateRoute>
+              <Leaderboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/add"
+          exact
+          element={
+            <PrivateRoute>
+              <CreatePoll />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/questions/:id"
+          element={
+            <PrivateRoute>
+              <ViewPoll />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </div>
+  );
 }
 
-const mapStateToProps = ({authedUser}) => ({
-    loggedIn: !!authedUser,
+const mapStateToProps = ({ authedUser }) => ({
+  loggedIn: !!authedUser,
 });
 
 export default connect(mapStateToProps)(NavRoute);

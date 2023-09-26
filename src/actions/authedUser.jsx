@@ -2,16 +2,34 @@
 export const SET_AUTHED_USER = "SET_AUTHED_USER";
 export const LOGOUT_AUTHED_USER = "LOGOUT_AUTHED_USER";
 
-// Set the authenticated user
+/**
+ * Action creator to set an authenticated user.
+ * 
+ * @param {Object} authedUser - The authenticated user object.
+ * @returns {Object} - The action object.
+ */
 export const setAuthedUser = (authedUser) => ({
   type: SET_AUTHED_USER,
   authedUser,
 });
 
-// Logout the current user
+/**
+ * Action creator to logout the current user.
+ * 
+ * @returns {Object} - The action object.
+ */
 export const logoutAuthedUser = () => ({ type: LOGOUT_AUTHED_USER });
 
-// Authenticate and login a user based on provided username and password
+/**
+ * Thunk to handle the user login process.
+ * Searches the state for a matching user based on the provided 
+ * username and password. If a match is found, dispatches an action to 
+ * set the authenticated user.
+ * 
+ * @param {string} username - The username to authenticate.
+ * @param {string} password - The password to match with the username.
+ * @returns {Function} - Dispatch function.
+ */
 export const handleLogin = (username, password) => (dispatch, getState) => {
   const matchingUser = Object.values(getState().users).find(
     (user) => user.id === username && user.password === password
@@ -22,5 +40,10 @@ export const handleLogin = (username, password) => (dispatch, getState) => {
   }
 };
 
-// Handle the logout process
+/**
+ * Thunk to handle the user logout process.
+ * Dispatches an action to logout the authenticated user.
+ * 
+ * @returns {Function} - Dispatch function.
+ */
 export const handleLogout = () => (dispatch) => dispatch(logoutAuthedUser());
