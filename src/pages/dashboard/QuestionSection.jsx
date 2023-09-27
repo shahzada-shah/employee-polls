@@ -25,7 +25,7 @@ const QuestionSection = ({
 }) => {
   return (
     <div className="py-10">
-      <div className="py-16 border-t border-gray-200 dark:border-gray-600">
+      <div className="py-8">
         {/* Title and subtitle of the section */}
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           {title}
