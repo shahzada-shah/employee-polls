@@ -90,61 +90,41 @@ const ViewPoll = ({ dispatch, authedUser, question, author }) => {
 
               {/* Poll options */}
               <div className="grid grid-cols-2 gap-4 mt-4 w-full max-w-2xl">
-                <button
-                  onClick={handleOptionOne}
-                  disabled={hasVoted}
-                  className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
-        ${
-          hasVotedForOptionOne
-            ? "bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
-            : ""
-        }`}
-                >
-                  <div className={hasVotedForOptionOne ? "chosen" : ""}>
-                    <p className="font-bold mb-2">{question.optionOne.text}</p>
+              <button
+    onClick={handleOptionOne}
+    disabled={hasVoted}
+    className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
+        ${hasVotedForOptionOne ? "bg-blue-600 border-blue-600 hover:bg-blue-700" : ""}`}
+>
+    <div>
+        <p className="font-bold mb-2">
+            {question.optionOne.text}
+            {hasVotedForOptionOne && <span className="ml-2 text-blue-300">✓ Chosen</span>}
+        </p>
 
-                    {!hasVoted && (
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                        Cast Vote
-                      </span>
-                    )}
+        {!hasVoted && <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Cast Vote</span>}
+        {hasVoted && <p className="text-xs">Total Votes: {question.optionOne.votes.length} ({calcPercentage("optionOne", question)})</p>}
+    </div>
+</button>
 
-                    {hasVoted && (
-                      <p className="text-xs">
-                        Total Votes: {question.optionOne.votes.length} (
-                        {calcPercentage("optionOne", question)})
-                      </p>
-                    )}
-                  </div>
-                </button>
 
-                <button
-                  onClick={handleOptionTwo}
-                  disabled={hasVoted}
-                  className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
-        ${
-          hasVotedForOptionTwo
-            ? "bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
-            : ""
-        }`}
-                >
-                  <div className={hasVotedForOptionTwo ? "chosen" : ""}>
-                    <p className="font-bold mb-2">{question.optionTwo.text}</p>
+<button
+    onClick={handleOptionTwo}
+    disabled={hasVoted}
+    className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
+        ${hasVotedForOptionTwo ? "bg-blue-600 border-blue-600 hover:bg-blue-700" : ""}`}
+>
+    <div>
+        <p className="font-bold mb-2">
+            {question.optionTwo.text}
+            {hasVotedForOptionTwo && <span className="ml-2 text-blue-300">✓ Chosen</span>}
+        </p>
 
-                    {!hasVoted && (
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                        Cast Vote
-                      </span>
-                    )}
+        {!hasVoted && <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Cast Vote</span>}
+        {hasVoted && <p className="text-xs">Total Votes: {question.optionTwo.votes.length} ({calcPercentage("optionTwo", question)})</p>}
+    </div>
+</button>
 
-                    {hasVoted && (
-                      <p className="text-xs">
-                        Total Votes: {question.optionTwo.votes.length} (
-                        {calcPercentage("optionTwo", question)})
-                      </p>
-                    )}
-                  </div>
-                </button>
               </div>
             </div>
           </div>
