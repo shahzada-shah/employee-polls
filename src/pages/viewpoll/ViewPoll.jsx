@@ -13,13 +13,17 @@ import Footer from "../../components/Footer";
  * @param {Object} author - Author of the question.
  * @returns {JSX.Element} - Rendered ViewPoll component.
  */
-const ViewPoll = ({ dispatch, authedUser, question, author }) => {
+const ViewPoll = ({ dispatch, authedUser, users, questions }) => {
   // Hooks
   const navigate = useNavigate(); // React-router navigation hook.
+  
+  const questionId = useParams().id;
+  const question = questions[questionId];
+  const author = question ? users[question.author] : null;
 
-  // If there's no authenticated user, question, or author, navigate back to home.
   if (!authedUser || !question || !author) {
-    return <Navigate to="/" />;
+    navigate("/");
+    return null; // Return null or some loading component.
   }
 
   // Check if authenticated user has voted for either option.
@@ -35,19 +39,15 @@ const ViewPoll = ({ dispatch, authedUser, question, author }) => {
   const handleOptionOne = (e) => {
     e.preventDefault();
     dispatch(handleAddAnswer(question.id, "optionOne"));
-    navigate("/");
+    // Remove the navigate line.
   };
-
-  /**
-   * Handles the vote action for option two.
-   *
-   * @param {Event} e - Event object.
-   */
+  
   const handleOptionTwo = (e) => {
     e.preventDefault();
     dispatch(handleAddAnswer(question.id, "optionTwo"));
-    navigate("/");
+    // Remove the navigate line.
   };
+  
 
   /**
    * Calculates the percentage of votes for the given option.
@@ -90,41 +90,69 @@ const ViewPoll = ({ dispatch, authedUser, question, author }) => {
 
               {/* Poll options */}
               <div className="grid grid-cols-2 gap-4 mt-4 w-full max-w-2xl">
-              <button
-    onClick={handleOptionOne}
-    disabled={hasVoted}
-    className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
-        ${hasVotedForOptionOne ? "bg-blue-600 border-blue-600 hover:bg-blue-700" : ""}`}
->
-    <div>
-        <p className="font-bold mb-2">
-            {question.optionOne.text}
-            {hasVotedForOptionOne && <span className="ml-2 text-blue-300">✓ Chosen</span>}
-        </p>
+                <button
+                  onClick={handleOptionOne}
+                  disabled={hasVoted}
+                  className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
+        ${
+          hasVotedForOptionOne
+            ? "bg-blue-600 border-blue-600 hover:bg-blue-700"
+            : ""
+        }`}
+                >
+                  <div>
+                    <p className="font-bold mb-2">
+                      {question.optionOne.text}
+                      {hasVotedForOptionOne && (
+                        <span className="ml-2 text-blue-300">✓ Chosen</span>
+                      )}
+                    </p>
 
-        {!hasVoted && <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Cast Vote</span>}
-        {hasVoted && <p className="text-xs">Total Votes: {question.optionOne.votes.length} ({calcPercentage("optionOne", question)})</p>}
-    </div>
-</button>
+                    {!hasVoted && (
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                        Cast Vote
+                      </span>
+                    )}
+                    {hasVoted && (
+                      <p className="text-xs">
+                        Total Votes: {question.optionOne.votes.length} (
+                        {calcPercentage("optionOne", question)})
+                      </p>
+                    )}
+                  </div>
+                </button>
 
+                <button
+                  onClick={handleOptionTwo}
+                  disabled={hasVoted}
+                  className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
+        ${
+          hasVotedForOptionTwo
+            ? "bg-blue-600 border-blue-600 hover:bg-blue-700"
+            : ""
+        }`}
+                >
+                  <div>
+                    <p className="font-bold mb-2">
+                      {question.optionTwo.text}
+                      {hasVotedForOptionTwo && (
+                        <span className="ml-2 text-blue-300">✓ Chosen</span>
+                      )}
+                    </p>
 
-<button
-    onClick={handleOptionTwo}
-    disabled={hasVoted}
-    className={`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 
-        ${hasVotedForOptionTwo ? "bg-blue-600 border-blue-600 hover:bg-blue-700" : ""}`}
->
-    <div>
-        <p className="font-bold mb-2">
-            {question.optionTwo.text}
-            {hasVotedForOptionTwo && <span className="ml-2 text-blue-300">✓ Chosen</span>}
-        </p>
-
-        {!hasVoted && <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Cast Vote</span>}
-        {hasVoted && <p className="text-xs">Total Votes: {question.optionTwo.votes.length} ({calcPercentage("optionTwo", question)})</p>}
-    </div>
-</button>
-
+                    {!hasVoted && (
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                        Cast Vote
+                      </span>
+                    )}
+                    {hasVoted && (
+                      <p className="text-xs">
+                        Total Votes: {question.optionTwo.votes.length} (
+                        {calcPercentage("optionTwo", question)})
+                      </p>
+                    )}
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -142,22 +170,7 @@ const ViewPoll = ({ dispatch, authedUser, question, author }) => {
  * @returns {object} The mapped props containing the authenticated user, the specific question, and the author of the question.
  */
 const mapStateToProps = ({ authedUser, users, questions }) => {
-  try {
-    // Fetch the question with the ID from the current route parameters.
-    const question = Object.values(questions).find(
-      (question) => question.id === useParams().id
-    );
-
-    // Fetch the author of the fetched question.
-    const author = Object.values(users).find(
-      (user) => user.id === question.author
-    );
-
-    return { authedUser, question, author };
-  } catch (e) {
-    // If any error occurs (e.g., question not found), navigate to the home page.
-    return <Navigate to="/" />;
-  }
+  return { authedUser, users, questions };
 };
 
 export default connect(mapStateToProps)(ViewPoll);
