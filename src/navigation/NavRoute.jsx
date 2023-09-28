@@ -61,7 +61,7 @@ function NavRoute({ dispatch, loggedIn }) {
           path="*"
           element={
             <PrivateRoute>
-              <Route path="*" element={<InvalidRoute page="page" />} />
+             element={<InvalidRoute page="page" />}
             </PrivateRoute>
           }
         />
