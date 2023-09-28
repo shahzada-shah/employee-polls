@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
-const InvalidRoute = () => {
+const InvalidRoute = ({ page }) => {
   return (
     <div>
       <Navbar />
@@ -16,7 +16,7 @@ const InvalidRoute = () => {
             Something's missing.
           </p>
           <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
-            Sorry, we can't find that page. You'll find lots to explore on the
+            Sorry, we can't find that {page}. You'll find lots to explore on the
             home page.{" "}
           </p>
           <Link

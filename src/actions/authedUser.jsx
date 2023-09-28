@@ -8,18 +8,23 @@ export const LOGOUT_AUTHED_USER = "LOGOUT_AUTHED_USER";
  * @param {Object} authedUser - The authenticated user object.
  * @returns {Object} - The action object.
  */
-export const setAuthedUser = (authedUser) => ({
-  type: SET_AUTHED_USER,
-  authedUser,
-});
+export const setAuthedUser = (authedUser) => {
+  localStorage.setItem('authedUser', JSON.stringify(authedUser));
+  return {
+    type: SET_AUTHED_USER,
+    authedUser,
+  };
+};
 
 /**
  * Action creator to logout the current user.
  * 
  * @returns {Object} - The action object.
  */
-export const logoutAuthedUser = () => ({ type: LOGOUT_AUTHED_USER });
-
+export const logoutAuthedUser = () => {
+  localStorage.removeItem('authedUser');
+  return { type: LOGOUT_AUTHED_USER };
+};
 /**
  * Thunk to handle the user login process.
  * Searches the state for a matching user based on the provided 
