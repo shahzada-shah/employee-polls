@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { handleAddQuestion } from "../../actions/questions";
 import Footer from "../../components/Footer";
 
+
 /**
  * CreatePoll Component
  * Allows users to create new employee polls.

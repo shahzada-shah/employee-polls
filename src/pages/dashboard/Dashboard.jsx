@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import DashboardHeader from "./DashboardHeader";
 import QuestionSection from "./QuestionSection";
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 /**
  * Dashboard component that displays the main poll interface.
@@ -36,6 +37,7 @@ const Dashboard = ({ authedUser, questions, users }) => {
 
   return (
     <div>
+      <Navbar />
       <section className="bg-white dark:bg-gray-900">
         <div className="mx-auto max-w-screen-xl text-center py-[100px] px-12 ">
           <DashboardHeader />

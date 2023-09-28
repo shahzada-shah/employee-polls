@@ -4,6 +4,7 @@ import { handleInitialData } from "../actions/shared";
 
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import InvalidRoute from "./InvalidRoute";
 
 import Navbar from "../components/Navbar";
 import Dashboard from "../pages/dashboard/Dashboard";
@@ -53,6 +54,14 @@ function NavRoute({ dispatch, loggedIn }) {
           element={
             <PrivateRoute>
               <ViewPoll />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <PrivateRoute>
+              <InvalidRoute />
             </PrivateRoute>
           }
         />
