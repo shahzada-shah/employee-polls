@@ -4,6 +4,10 @@
 
 The Employee Polls App facilitates an environment where employees can voice their opinions on various topics through polls. Users can cast their votes, see collective results, and even create new polls on topics.
 
+![Login Page](https://github.com/shahzada-shah/employee-polls/blob/main/src/assets/login.png)
+![Dashboard Page](https://github.com/shahzada-shah/employee-polls/blob/main/src/assets/dashboard.png)
+
+
 ## Tech Stack
 
 - **Frontend**: ReactJS
@@ -24,6 +28,10 @@ Although `create-react-app` is a popular choice for bootstrapping React projects
 3. **View Results**: After voting, users can instantly view aggregated poll results.
 4. **User Leaderboards**: The application features an interactive leaderboard where users can check rankings based on poll participation and influence.
 5. **Responsive UI**: The app dynamically adjusts to user interactions, providing real-time feedback and updates.
+
+![CreatePoll Page](https://github.com/shahzada-shah/employee-polls/blob/main/src/assets/createpoll.png)
+![ViewPoll Page](https://github.com/shahzada-shah/employee-polls/blob/main/src/assets/viewpoll.png)
+![Leaderboard Page](https://github.com/shahzada-shah/employee-polls/blob/main/src/assets/leaderboards.png)
 
 ## Installation & Running the App
 
